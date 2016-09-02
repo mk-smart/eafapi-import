@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eeml xmlns="http://www.eeml.org/xsd/0.5.1"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+version="0.5.1"
+xsi:schemaLocation="http://www.eeml.org/xsd/0.5.1 http://www.eeml.org/xsd/0.5.1/0.5.1.xsd">
+
+<environment>
+<title>NEWPORT PAGNELL GS</title>
+<tag>Environment Agency</tag><tag>Flood</tag><tag>River</tag><tag>Water</tag><tag>NEWPORT PAGNELL GS</tag>
+<location exposure="outdoor" domain="physical" disposition="fixed">
+<name>NEWPORT PAGNELL GS</name>
+<lat>52.089353573260084</lat><lon>-0.7220114244276005</lon>
+</location>
+<data id="0">
+<tag>Flow</tag><tag>Stage</tag>
+<current_value at="2016-09-02T06:00:00Z">0.48</current_value>
+<unit symbol="m3/s">m3/s</unit>
+</data>
+</environment>
+
+</eeml>
+

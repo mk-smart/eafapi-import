@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eeml xmlns="http://www.eeml.org/xsd/0.5.1"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+version="0.5.1"
+xsi:schemaLocation="http://www.eeml.org/xsd/0.5.1 http://www.eeml.org/xsd/0.5.1/0.5.1.xsd">
+
+<environment>
+<title>WATER EATON BROOK GS BLETCHLEY</title>
+<tag>Environment Agency</tag><tag>Flood</tag><tag>River</tag><tag>Water</tag><tag>WATER EATON BROOK GS BLETCHLEY</tag>
+<location exposure="outdoor" domain="physical" disposition="fixed">
+<name>WATER EATON BROOK GS BLETCHLEY</name>
+<lat>51.9830382770847</lat><lon>-0.7654762379410233</lon>
+</location>
+<data id="0">
+<tag>Water Level</tag><tag>Stage</tag>
+<current_value at="2016-09-02T05:15:00Z">84.44</current_value>
+<unit symbol="mAOD">mAOD</unit>
+</data>
+</environment>
+
+</eeml>
+

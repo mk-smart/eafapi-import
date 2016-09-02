@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+<identifier>http://environment.data.gov.uk/flood-monitoring/id/floods/95117</identifier>
+<sender>wp1-apps@mksmart.org</sender>
+<sent>2016-01-06T08:32:00</sent>
+<status>Actual</status>
+<msgType>Alert</msgType>
+<scope>Public</scope>
+<info>
+  <category>Met</category>
+  <event>River Thames for Henley, Remenham, Medmenham and its tributaries</event>
+  <urgency>Immediate</urgency>
+  <severity>Minor</severity>
+  <certainty>Observed</certainty>
+  <effective>2016-01-06T08:32:00-00:00</effective>
+  <headline>River Thames for Henley, Remenham, Medmenham and its tributaries</headline>
+  <description>The river and flooding forecast is as follows: Water levels on the River Thames in the Henley, Renmenham and Medmenham areas are currently stable but  remain high with water in the flood plain in some areas. Some isolated flooding of lower lying areas of land adjacent to the river is expected to continue. River levels will remain sensitive to further forecast rainfall in the Thames catchment overnight on Wednesday and in to Thursday. No property flooding is expected. 
+The latest weather forecast is for any showers to clear by Wednesday lunchtime, leaving a dry afternoon and evening. Further rain is forecast overnight on Wednesday and in to Thursday.</description>
+  <parameter><valueName>Severity Level</valueName><value>3</value></parameter>
+  <parameter><valueName>Severity</valueName><value>Flood Alert</value></parameter>
+   <area>
+      <areaDesc>River Thames, Assendon Stream, Hambledon Brook</areaDesc>
+      <circle>51.54878235239278,-0.874420355069186 0.0</circle>
+   </area>
+</info>
+</alert>
+

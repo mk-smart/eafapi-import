@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+<identifier>http://environment.data.gov.uk/flood-monitoring/id/floods/95158</identifier>
+<sender>wp1-apps@mksmart.org</sender>
+<sent>2016-01-06T10:58:00</sent>
+<status>Actual</status>
+<msgType>Alert</msgType>
+<scope>Public</scope>
+<info>
+  <category>Met</category>
+  <event>River Ray and its tributaries from Shipton Lee to and including Islip</event>
+  <urgency>Immediate</urgency>
+  <severity>Minor</severity>
+  <certainty>Observed</certainty>
+  <effective>2016-01-06T10:58:00-00:00</effective>
+  <headline>River Ray and its tributaries from Shipton Lee to and including Islip</headline>
+  <description>The river and flooding forecast is as follows: River levels on the River Ray at Islip are rising and flood water may flow out into some low lying areas. No property flooding is expected. The weather forecast is for a dry day however this evening will bring a band of potentially heavy rain. Thursday will be a showery day.</description>
+  <parameter><valueName>Severity Level</valueName><value>3</value></parameter>
+  <parameter><valueName>Severity</valueName><value>Flood Alert</value></parameter>
+   <area>
+      <areaDesc>River Ray, Wootten Brook, Doddershall Brook, Tetchwick Brook, Lugershall Brook, Murswell Hill Brook, Cutters Brook, Piddington Brook, Blackthorn Brook, Panshill Brook, Studley Wood Brook, Beckley Brook, Oddington Brook, Gallos Brook, Chipping Farm Stream</areaDesc>
+      <circle>51.853695857705866,-1.118012459357717 0.0</circle>
+   </area>
+</info>
+</alert>
+

@@ -1,0 +1,11 @@
+package org.mksmart.utils.eafapi4j;
+
+import org.json.JSONObject;
+import org.json.JSONArray;
+
+public class Station {
+
+    private JSONObject jo;
+
+
+}

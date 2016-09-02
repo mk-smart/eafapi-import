@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eeml xmlns="http://www.eeml.org/xsd/0.5.1"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+version="0.5.1"
+xsi:schemaLocation="http://www.eeml.org/xsd/0.5.1 http://www.eeml.org/xsd/0.5.1/0.5.1.xsd">
+
+<environment>
+<title>Willen</title>
+<tag>Environment Agency</tag><tag>Flood</tag><tag>River</tag><tag>Water</tag><tag>Willen</tag>
+<location exposure="outdoor" domain="physical" disposition="fixed">
+<name>Willen</name>
+<lat>52.058687</lat><lon>-0.714748</lon>
+</location>
+<data id="0">
+<tag>Water Level</tag><tag>Stage</tag>
+<current_value at="2016-09-02T06:00:00Z">0.263</current_value>
+<unit symbol="m">m</unit>
+</data>
+</environment>
+
+</eeml>
+

@@ -1,0 +1,146 @@
+package org.mksmart.utils;
+
+import org.mksmart.utils.eafapi4j.EAFAPI;
+import org.mksmart.utils.eafapi4j.Station;
+import org.mksmart.utils.eafapi4j.Alert;
+import org.mksmart.utils.eafapi4j.Measure;
+import org.mksmart.utils.eafapi4j.Reading;
+
+import java.util.HashMap;
+import java.util.Vector;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.io.PrintWriter;
+
+public class MToEEML {
+
+    private static String capHeader(String id, String date){
+	return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n"+
+	    "<alert xmlns=\"urn:oasis:names:tc:emergency:cap:1.2\">\n"+
+	    "<identifier>"+id+"</identifier>\n"+
+	    "<sender>wp1-apps@mksmart.org</sender>\n"+
+	    "<sent>"+date+"</sent>\n"+
+	    "<status>Actual</status>\n"+
+	    "<msgType>Alert</msgType>\n"+
+	    "<scope>Public</scope>\n";
+    }
+
+    private static String capFooter(){
+	return "</alert>\n";
+    }
+
+    private static String floodsToCap(Vector<Alert> floodAlerts){	
+	String s = "";
+	int count = 0;
+	for (Alert a : floodAlerts){
+	    s+=floodToCap(a, count)+"\n";
+	    count++;
+	}
+	return s;
+    }
+
+    private static String floodToCap(Alert a, int filenb){
+	String s = capHeader(a.getID(), a.getTimeRaised());
+	//	    System.err.println("Alert "+a.getID());
+	s+="<info>\n"+
+	    "  <category>Met</category>\n"+
+	    "  <event>"+a.getDescription()+"</event>\n";
+	if (a.getSeverityLevel()==4)
+	    s+= "  <urgency>Past</urgency>\n";
+	else 	 
+	    s+= "  <urgency>Immediate</urgency>\n";
+	s+="  <severity>"+Alert.severity[a.getSeverityLevel()]+"</severity>\n"+
+	    "  <certainty>Observed</certainty>\n"+
+	    "  <effective>"+a.getTimeRaised()+"-00:00</effective>\n"+
+	    "  <headline>"+a.getDescription()+"</headline>\n"+
+	    "  <description>"+a.getMessage()+"</description>\n"+
+	    "  <parameter><valueName>Severity Level</valueName><value>"+a.getSeverityLevel()+"</value></parameter>\n"+
+	    "  <parameter><valueName>Severity</valueName><value>"+a.getSeverity()+"</value></parameter>\n"+
+	    "   <area>\n"+
+	    "      <areaDesc>"+a.getRiverOrSea()+"</areaDesc>\n"+
+	    //		"      <polygon>"+a.getPolygon()+"</polygon>\n"+
+	    "      <circle>"+a.getLat()+","+a.getLong()+" 0.0</circle>\n"+
+	    "   </area>\n"+
+	    "</info>\n";
+	s+=capFooter();
+	String fn = ""+filenb+".cap";
+	try {
+	    PrintWriter out = new PrintWriter(fn);
+	    out.println(s);
+	    out.close();
+	} catch(Exception e){
+	    e.printStackTrace();
+	}
+	return fn;
+    }
+
+    private static String eemlHeader(){
+	return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+
+	    "<eeml xmlns=\"http://www.eeml.org/xsd/0.5.1\"\n"+
+	    "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n"+
+	    "version=\"0.5.1\"\n"+
+	    "xsi:schemaLocation=\"http://www.eeml.org/xsd/0.5.1 http://www.eeml.org/xsd/0.5.1/0.5.1.xsd\">\n";
+    }
+
+    private static String eemlFooter(){
+	return "</eeml>\n";
+    }
+
+    private static String stationToEeml(Station station){
+	System.err.println(station.getName());
+	System.err.println(station.getLat()+" - "+station.getLong());
+	Measure[] measures = station.getMeasures();
+	for(Measure measure : measures){
+	    System.err.println("   "+measure.getParameterName()+" - "+measure.getQualifier()+" - "+measure.getUnitName());	
+	    Reading reading = measure.getLatestReading();
+	    System.err.println("    "+reading.getDateTime()+" - "+reading.getValue()+" "+measure.getUnitName());	
+	}
+	String res="<environment>\n"+
+	    "<title>"+station.getName()+"</title>\n"+
+	    "<tag>Environment Agency</tag>"+
+	    "<tag>Flood</tag>"+
+	    "<tag>River</tag>"+
+	    "<tag>Water</tag>"+
+	    "<tag>"+station.getName()+"</tag>\n"+
+	    "<location exposure=\"outdoor\" domain=\"physical\" disposition=\"fixed\">\n"+
+	    "<name>"+station.getName()+"</name>\n"+
+	    "<lat>"+station.getLat()+"</lat>"+
+	    "<lon>"+station.getLong()+"</lon>\n"+
+	    "</location>\n";
+	for (Measure measure : measures){
+	    Reading reading = measure.getLatestReading();
+	    res+="<data id=\"0\">\n"+
+		"<tag>"+measure.getParameterName()+"</tag>"+
+		"<tag>"+measure.getQualifier()+"</tag>\n"+		
+		"<current_value at=\""+reading.getDateTime()+"\">"+reading.getValue()+"</current_value>\n"+
+		"<unit symbol=\""+measure.getUnitName()+"\">"+measure.getUnitName()+"</unit>\n"+
+		"</data>\n";
+	}
+	res+= "</environment>\n";
+	return res;
+    }
+
+    public static void main (String[] args){	
+	if (args.length == 1){
+	    System.out.println(eemlHeader());
+	    System.out.println(stationToEeml(new Station(args[0])));
+	    System.out.println(eemlFooter());
+	} else if (args.length == 2 && args[0].equals("floods")) {
+	    EAFAPI api = new EAFAPI();
+	    System.out.print(floodsToCap(api.getAlerts(args[1])));
+	} else {
+	    EAFAPI api = new EAFAPI();
+	    HashMap<String,Station> stations = api.getStations("?lat=52.0381382&long=-0.7576441&dist=15");       
+	    for(String station : stations.keySet()){
+		System.out.println(station+" - "+stations.get(station).getName());	    
+		Measure[] measures = stations.get(station).getMeasures();
+		for(Measure measure : measures){
+		    System.out.println("   "+measure.getParameterName()+" - "+measure.getQualifier()+" - "+measure.getUnitName());
+		}
+	    }	
+	}
+
+    }
+
+
+}

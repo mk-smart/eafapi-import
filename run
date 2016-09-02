@@ -1,0 +1,13 @@
+
+# flood alerts in bucks: ./run floods 'county=buckinghamshire'
+# data from a given gauge: ./run <GaugeID>
+
+if [ $# -eq 1 ]; 
+   then java -jar $SHP_HOME/eafapi/target/EAFloodAPItoEEML-0.1-jar-with-dependencies.jar "$1"
+fi 
+
+if [ $# -eq 2 ]; 
+   then java -jar $SHP_HOME/eafapi/target/EAFloodAPItoEEML-0.1-jar-with-dependencies.jar "$1" "$2"
+fi 
+
+#-Dhttp.proxyHost=wwwcache.open.ac.uk -Dhttp.proxyPort=80  
